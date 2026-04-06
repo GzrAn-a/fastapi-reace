@@ -24,3 +24,7 @@ my_fastapi_project/
 ├── requirements.txt         # 项目依赖
 └── README.md
 ```
+
+```shell
+pip install -i requirements.txt
+```
