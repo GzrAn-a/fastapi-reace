@@ -28,3 +28,6 @@ my_fastapi_project/
 ```shell
 pip install -i requirements.txt
 ```
+
+## app 是后端
+## fastComd 是前端

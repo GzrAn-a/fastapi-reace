@@ -3,3 +3,9 @@
 .idea
 .vscode
 .env
+.fastapicloud
+assets/*
+fastComd/dist
+dist/*
+fastComd/node_modules
+.venv
