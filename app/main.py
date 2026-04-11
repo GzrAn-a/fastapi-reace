@@ -37,9 +37,12 @@ app.mount("/assets", StaticFiles(directory="assets"), name="static")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-                   "http://192.168.20.236:8000",  # 允许局域网 IP 访问
-                   "http://localhost:8000",  # 允许本地访问
-                   "http://127.0.0.1:8000",
+                    "*",
+                   # "http://192.168.20.236:8000",  # 允许局域网 IP 访问
+                   # "http://localhost:8000",  # 允许本地访问
+                   # "http://127.0.0.1:8000",
+                   #  "http://localhost:5173/"
+
                    ],      # 允许所有来源
     allow_credentials=True,
     allow_methods=["*"],
