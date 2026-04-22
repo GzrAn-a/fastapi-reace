@@ -2,7 +2,7 @@
 *.pyd
 .idea
 .vscode
-.env
+#.env
 .fastapicloud
 assets/*
 fastComd/dist/
