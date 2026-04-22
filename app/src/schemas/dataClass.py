@@ -1,5 +1,3 @@
-
-
 from pydantic import BaseModel
 
 
@@ -14,6 +12,8 @@ class SocketData(BaseModel):
     name: str
     price: float
     is_offer: bool
+
+
 class WebSocketData(BaseModel):
-    now:str
+    now: str
     data: SocketData
