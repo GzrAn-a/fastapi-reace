@@ -6,6 +6,8 @@
 .fastapicloud
 assets/*
 fastComd/dist/
+fastComd/dist
 dist/*
 fastComd/node_modules/
+fastComd/node_modules
 .venv
