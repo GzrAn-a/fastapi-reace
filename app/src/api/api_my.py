@@ -7,7 +7,7 @@ from sqlmodel import select
 from starlette.responses import StreamingResponse
 
 from app.src.services.server_auth import server_auth
-from models.model_Hero import Hero, SessionDep
+from app.src.models.model_Hero import Hero, SessionDep
 
 router = APIRouter()
 
