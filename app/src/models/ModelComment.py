@@ -1,13 +1,10 @@
-from email.policy import default
 from typing import Optional, List
 
-from sqlalchemy import BigInteger,JSON
+from sqlalchemy import BigInteger, JSON
 from sqlmodel import SQLModel, Field
 
 from app.src.db import engine
 
-
-#
 
 class ModelComment(SQLModel,table=True):
     id:Optional[int] = Field(default=None,primary_key=True)

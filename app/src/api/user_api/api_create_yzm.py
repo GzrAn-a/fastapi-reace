@@ -5,7 +5,7 @@ from app.src.services.server_create_yzm import server_create_yzm, delete_file
 router = APIRouter()
 
 
-@router.get("/create_yzm")
+@router.get("/create_yzm",summary="创建验证码")
 def captcha(background_tasks: BackgroundTasks):
     """生成验证码"""
     img = server_create_yzm()

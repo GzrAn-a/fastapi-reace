@@ -12,18 +12,14 @@ class ModelProject(SQLModel,table=True):
     
     id: Optional[int] = Field(default=None, primary_key=True)  # 主键
     project_id: str = Field(unique=True, index=True)  # 业务订单号 (如: "ORD_20231027_001")
-    
     # 核心隔离字段：订单属于哪个学校
     school_id: Optional[int] = Field(default=None, foreign_key="school.id")
-    
     # 关联人员
     publisher_openid: str = Field(index=True)  # 发布者 (出钱的人)
     receiver_openid: Optional[str] = Field(default=None, index=True)  # 接单者 (跑腿的人，接单前为空)
-    
     # --- 3. 订单状态 ---
     # 0: 待接单, 1: 待取货, 2: 配送中, 3: 已完成, 4: 已取消, 5: 申诉中
     status: int = Field(default=0, index=True,description="订单状态: 0-待接单, 1-待取货, 2-配送中, 3-已完成, 4-已取消")
-    
     from_address: str =Field(sa_column=Column(String(255),comment="取货详细地址")) # 取货地址
     to_address: str = Field(
         title="送货地址",
@@ -32,7 +28,7 @@ class ModelProject(SQLModel,table=True):
     ) # 送货地址
     from_phone: str  # 取货联系人电话 (重要！)
     to_phone: str  # 收货联系人电话 (重要！)
-    
+    # distance:int #距离
     item_type: str  # 物品类型 (文件/蛋糕/钥匙/其他)
     item_weight: str  # 重量/规格 (如 "5kg以内")
     tags: Optional[List[str]] = Field(

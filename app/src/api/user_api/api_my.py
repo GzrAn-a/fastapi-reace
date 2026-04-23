@@ -7,7 +7,7 @@ from sqlmodel import select
 from starlette.responses import StreamingResponse
 
 from app.src.services.server_auth import server_auth
-from app.src.models.model_Hero import Hero, SessionDep
+
 
 router = APIRouter()
 
@@ -19,43 +19,6 @@ async def user_login(
     data = await server_auth(file)
 
     return {"message": data}
-
-
-@router.post("/heroes/", summary="创建用户")
-def create_hero(hero: Hero, session: SessionDep) -> Hero:
-    session.add(hero)
-    session.commit()
-    session.refresh(hero)
-    return hero
-
-
-@router.get("/heroes/", summary="查询用户列表")
-def read_heroes(
-        session: SessionDep,
-        offset: int = 0,
-        limit: Annotated[int, Query(le=100)] = 100,
-) -> Sequence[Any]:
-    heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
-    return heroes
-
-
-@router.get("/heroes/{hero_id}", summary="通过id查询用户")
-def read_hero(hero_id: int, session: SessionDep):
-    hero = session.get(Hero, hero_id)
-    if not hero:
-        raise HTTPException(status_code=404, detail="Hero not found")
-    return hero
-
-
-@router.delete("/heroes/{hero_id}", summary="通过id删除用户")
-def delete_hero(hero_id: int, session: SessionDep):
-    hero = session.get(Hero, hero_id)
-    if not hero:
-        raise HTTPException(status_code=404, detail="Hero not found")
-    session.delete(hero)
-    session.commit()
-    return {"ok": True}
-
 
 from pydantic import BaseModel
 import json
