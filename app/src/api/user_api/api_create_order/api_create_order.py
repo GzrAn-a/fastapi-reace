@@ -25,6 +25,8 @@ async def create_order(
     user_info: ModelUser = session.exec(user_statement).first()  # 转化为 用户模型 实力
     if user_info is None:
         return {"message": '用户未注册'}
+    if user_info.school_id ==0:
+        return {"message": "您的学校信息未通过管理员审核"}
     # 2 订单号
     project_id = str(uuid.uuid4())  # 长度 36 位，全球唯一
     # 3. 数据映射：将 Schema 转换为 Model

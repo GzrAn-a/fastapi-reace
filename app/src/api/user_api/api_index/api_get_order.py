@@ -13,24 +13,30 @@ router = APIRouter()
 async def api_get_order(session: Session = Depends(get_session)):
     """Get the order 获取订单"""
 
-    # 使用 join 关联查询，一次性获取订单和对应的用户数据
+
+    # 应该要从用户 token JWT等中获得用户的 id 来查询用户的 school_id 是否为 0，若为 0 则审核不通过
+    # all_users = session.exec(select(ModelUser).where(ModelUser.school_id != 0)).first()
+    # # if all_users is None:
+    # #     return all_users
+    # #     return {"message":"学校信息未通过审核"}
+    # # 使用 join 关联查询，一次性获取订单和对应的用户数据
     all_projects = session.exec(select(ModelProject)).all()
     print(f"数据库中总共有 {len(all_projects)} 条订单")
 
     for i in all_projects:
-        print(i)
+        print("数据条数",i)
 
-    # all_users = session.exec(select(ModelUser)).all()
-    # for u in all_users:
-    #     print(f"用户ID: {u.id}, OpenID: '{u.openid}', 昵称: {u.nick_name}")
+
+
 
     statement = (
         select(ModelProject, ModelUser)
         .outerjoin(ModelUser, ModelProject.publisher_openid == ModelUser.openid)
-        .where(ModelProject.status == 0)
+        .where(ModelProject.status == 0 , ModelUser.school_id != 0) # shcool_id == 代表未通过管理员审核，不能查询和使用
     )
 
     results = session.exec(statement).all()
+
     print("results:", results)
     order_list = []
     for project, user in results:
@@ -50,5 +56,4 @@ async def api_get_order(session: Session = Depends(get_session)):
             distance=0
         )
         order_list.append(order_dto)
-
     return order_list
